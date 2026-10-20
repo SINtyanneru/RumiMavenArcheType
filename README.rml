@@ -1,1 +1,40 @@
 # るみのMavenテンプレ
+
+## 使い方
+
+```
+./build.sh      # プロトタイプから archetype を生成 (target/generated-sources/archetype)
+./install.sh    # 生成した archetype をローカルリポジトリにインストール
+./debug.sh      # 上記2つを実行して test_project を生成して動作確認
+```
+
+任意のプロジェクトを作る場合:
+
+```
+mvn archetype:generate \
+  -DarchetypeGroupId=jp.rumi_room \
+  -DarchetypeArtifactId=rumi_archetype-archetype \
+  -DarchetypeVersion=1.0 \
+  -DgroupId=jp.rumi_room \
+  -DartifactId=my_project \
+  -Dpackage=jp.rumi_room.my_project \
+  -DinteractiveMode=false
+```
+
+`-Dpackage` を省略すると package は groupId のみ (`jp.rumi_room`) になる。
+`src/main/java/jp/rumi_room/my_project` にしたいときは `-Dpackage` を必ず指定する。
+
+## テンプレの中身を変える
+
+`rumi_archetype/src` 以下のプロトタイプを編集して `./build.sh && ./install.sh` すれば反映される。
+
+注意点 (create-from-project の仕様):
+
+- `src/main/java` と `src/test/java` の package は必ず同じルートにする
+  (例: 両方 `jp.rumi_room.rumi_archetype`)。ルートがずれると
+  `jp/rumi_room/xxx` のように途中までのディレクトリが生成物に残って二重になる。
+- 空ディレクトリは archetype に含まれない。`src/main/resources` などを作るときは
+  `.gitkeep` などを入れておく (今は両 resources ディレクトリに `.gitkeep` あり)。
+- `build.sh` は `mvn clean` してから生成する。しないと過去の生成物が混ざる。
+- `pom.xml` の `<mainClass>${package}.Main</mainClass>` は archetype 生成時に
+  生成先プロジェクトの package へ置き換わるので、そのまま残すこと。

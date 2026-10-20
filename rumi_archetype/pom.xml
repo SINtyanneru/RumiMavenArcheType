@@ -48,7 +48,10 @@
 					<appendAssemblyId>false</appendAssemblyId>
 					<archive>
 						<manifest>
-							<mainClass>${project.groupId}.${project.artifactId}.Main</mainClass>
+							<!-- ${package} は archetype:generate 実行時に生成先プロジェクトの package へ
+							     置き換えられる(create-from-project 経由でもそのまま残る)。
+							     こうしておくと Main.java の package と必ず一致する。 -->
+							<mainClass>${package}.Main</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>

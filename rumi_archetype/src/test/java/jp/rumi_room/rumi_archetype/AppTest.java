@@ -1,4 +1,4 @@
-package jp.rumi-room;
+package jp.rumi_room.rumi_archetype;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

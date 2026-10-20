@@ -1,3 +1,4 @@
+set -e
 rm -rf test_project/
 
 ./build.sh
@@ -9,4 +10,5 @@ mvn archetype:generate \
   -DarchetypeVersion=1.0 \
   -DgroupId=jp.rumi_room \
   -DartifactId=test_project \
+  -Dpackage=jp.rumi_room.test_project \
   -DinteractiveMode=false
